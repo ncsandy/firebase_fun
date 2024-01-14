@@ -69,49 +69,49 @@
 
 	window.onload = function () {
 
-		const registerBtn = document.getElementById("signUp").onclick = (async (e) => {
-			e.preventDefault()
+        const registerBtn = document.getElementById("signUp").onclick = (async (e) => {
+            e.preventDefault()
 
-			const username = document.getElementById("nameS").value
-			const password = document.getElementById("passwordS").value
-			const email = document.getElementById("emailS").value
+            const username = document.getElementById("nameS").value
+            const password = document.getElementById("passwordS").value
+            const email = document.getElementById("emailS").value
 
-			createUserWithEmailAndPassword(auth, email, password)
-					.then((UserCredential) => {
-						const user = UserCredential.user;
-						console.log("User registered")
-					})
-					.catch((error) => {
-						const errorCode = error.code;
-						const errorMessage = error.message;
-						console.log(errorCode)
-						console.log(errorMessage)
-					})
+            createUserWithEmailAndPassword(auth, email, password)
+                .then((UserCredential) => {
+                    const user = UserCredential.user;
+                    console.log("User registered")
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    console.log(errorCode)
+                    console.log(errorMessage)
+                })
 
-		})
+        })
 
-		const loginButton = document.getElementById("login").onclick = (async (e) => {
-			e.preventDefault()
+        const loginButton = document.getElementById("login").onclick = (async (e) => {
+            e.preventDefault()
 
-			const password = document.getElementById("passwordL").value
-			const email = document.getElementById("emailL").value
+            const password = document.getElementById("passwordL").value
+            const email = document.getElementById("emailL").value
 
-			signInWithEmailAndPassword(auth, email, password)
-					.then((userCredential) => {
-						const user = userCredential.user;
-                        console.log(email + " " + " is signed in")
-                        const user1 = auth.currentUser;
-                        console.log(user1.getIdToken())
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    console.log(email + " " + " is signed in")
+                    const user1 = auth.currentUser;
+                    console.log(user1.getIdToken())
 
-					})
-					.catch((error) => {
-						const errorCode = error.code;
-						const errorMessage = error.message;
-						console.log(errorMessage)
-						console.log(errorCode)
-					});
-		})
-	}
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    console.log(errorMessage)
+                    console.log(errorCode)
+                });
+        })
+    }
 
 </script>
 
