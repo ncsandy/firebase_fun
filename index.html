@@ -46,11 +46,8 @@
     // Add Firebase products that you want to use
     import {getFirestore} from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js'
     import {doc, setDoc} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-    import {
-        getAuth,
-        createUserWithEmailAndPassword,
-        signInWithEmailAndPassword
-    } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js'
+    import {getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js'
+    import { getDatabase, ref, set } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js'
 
 
     // TODO: Replace the following with your app's Firebase project configuration
@@ -60,11 +57,12 @@
         projectId: "simple-app-d3cee",
         storageBucket: "simple-app-d3cee.appspot.com",
         messagingSenderId: "377352501064",
-        appId: "1:377352501064:web:716826c54b6df7930b257d"
+        appId: "1:377352501064:web:716826c54b6df7930b257d",
+        databaseUrl: "https://simple-app-d3cee-default-rtdb.firebaseio.com"
     };
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app)
+    const database = getDatabase(app)
     const auth = getAuth();
 
 	window.onload = function () {
@@ -80,6 +78,19 @@
                 .then((UserCredential) => {
                     const user = UserCredential.user;
                     console.log("User registered")
+
+                    try {
+                        set(ref(database, 'users/' + user.uid), {
+                            username: username,
+                            email: email,
+                            idToken: user.getIdToken()
+                        })
+                    }catch (error){
+                        console.log('User failed to register to database')
+                        const errorCode = error.code;
+                        const errorMessage = error.message
+                        console.log(errorCode + " \n" + errorMessage)
+                    }
                 })
                 .catch((error) => {
                     const errorCode = error.code;
@@ -87,7 +98,6 @@
                     console.log(errorCode)
                     console.log(errorMessage)
                 })
-
         })
 
         const loginButton = document.getElementById("login").onclick = (async (e) => {
@@ -114,7 +124,6 @@
     }
 
 </script>
-
 
 <!--script src="./js/signup.js"></script-->
 </body>
