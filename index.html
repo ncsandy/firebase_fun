@@ -116,7 +116,7 @@
                     const user = userCredential.user;
                     console.log(email + " " + " is signed in")
                     updateToDatabase(user)
-                    window.location.href = "./home.html";
+                    window.location.href = "./user.html";
                 })
                 .catch((error) => {
                     const errorCode = error.code;
@@ -181,7 +181,6 @@
     }
 </script>
 
-<!--script src="./js/signup.js"></script-->
 </body>
 
 </html>
